@@ -17,6 +17,9 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    forceSwcTransforms: true, // add this to fix styled-jsx issues in builds
+  },
 };
 
 export default nextConfig;
