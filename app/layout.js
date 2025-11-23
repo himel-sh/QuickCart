@@ -3,6 +3,7 @@ import "./globals.css";
 import { AppContextProvider } from "@/context/AppContext";
 import { Toaster } from "react-hot-toast";
 import { ClerkProvider } from "@clerk/nextjs";
+import "styled-jsx/css";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500"] });
 

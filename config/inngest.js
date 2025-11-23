@@ -1,13 +1,11 @@
 import { Inngest } from "inngest";
-import { connect } from "mongoose";
 import connectDB from "./db";
 import User from "@/models/User";
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "quickcart-next" });
 
-// inngest function to save data to a data base
-
+// --- Sync User Creation ---
 export const syncUserCreation = inngest.createFunction(
   {
     id: "sync-user-from-clerk",
@@ -29,8 +27,7 @@ export const syncUserCreation = inngest.createFunction(
   }
 );
 
-// inngest function to update user data in database
-
+// --- Sync User Update ---
 export const syncUserUpdation = inngest.createFunction(
   {
     id: "update-user-from-clerk",
@@ -52,8 +49,8 @@ export const syncUserUpdation = inngest.createFunction(
   }
 );
 
-//inngest functyion to delete user from database
-export const syncUserDeletion = inngest.craetefunction(
+// --- Sync User Deletion ---
+export const syncUserDeletion = inngest.createFunction(
   {
     id: "delete-user-with-clerk",
   },
@@ -63,6 +60,6 @@ export const syncUserDeletion = inngest.craetefunction(
   async ({ event }) => {
     const { id } = event.data;
     await connectDB();
-    await User.findByIdAndDelete();
+    await User.findByIdAndDelete(id);
   }
 );
