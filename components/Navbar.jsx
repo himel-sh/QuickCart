@@ -25,8 +25,8 @@ const Navbar = () => {
         <Link href="/all-products" className="hover:text-gray-900 transition">
           Shop
         </Link>
-        <Link href="/" className="hover:text-gray-900 transition">
-          About Us
+        <Link href="/be-seller" className="hover:text-gray-900 transition">
+          Be a Seller
         </Link>
         <Link href="/" className="hover:text-gray-900 transition">
           Contact
