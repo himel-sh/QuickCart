@@ -19,21 +19,33 @@ export async function POST(request) {
 
     // Calculation
 
-    const amount = await items.reduce(async (acc, item) => {
+    // NEW - for..of loop (works correctly)
+    let amount = 0;
+    for (const item of items) {
       const product = await Product.findById(item.product);
-      return acc + product.offerPrice * item.quantity;
-    }, 0);
+      if (!product) {
+        return NextResponse.json({
+          success: false,
+          message: `Product with ID ${item.product} not found`,
+        });
+      }
+      amount += product.offerPrice * item.quantity;
+    }
 
-    await inngest.send({
-      name: "order/created",
-      data: {
-        userId,
-        address,
-        items,
-        amount: amount + Math.floor(amount * 0.02),
-        date: Date.now(),
-      },
-    });
+    try {
+      await inngest.send({
+        name: "order/created",
+        data: {
+          userId,
+          address,
+          items,
+          amount: amount + Math.floor(amount * 0.02),
+          date: Date.now(),
+        },
+      });
+    } catch (error) {
+      console.error("Inngest send failed:", error.message);
+    }
 
     // create user cart
 
@@ -44,6 +56,6 @@ export async function POST(request) {
     return NextResponse.json({ success: true, message: "Order Placed" });
   } catch (error) {
     console.log(error);
-    NextResponse.json({ success: false, message: error.message });
+    return NextResponse.json({ success: false, message: error.message });
   }
 }

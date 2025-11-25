@@ -81,7 +81,7 @@ export const creatUserOrder = inngest.createFunction(
       return {
         userId: event.data.userId,
         items: event.data.items,
-        amounts: event.data.amount,
+        amount: event.data.amount,
         address: event.data.address,
         date: event.data.date,
       };
