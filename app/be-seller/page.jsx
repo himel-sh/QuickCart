@@ -13,6 +13,7 @@ export default function BeSellerPage() {
 
       const res = await fetch("/api/user/set-seller", {
         method: "POST",
+        credentials: "include",
       });
 
       const data = await res.json();
