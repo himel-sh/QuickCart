@@ -489,7 +489,7 @@ export const addressDummyData = [
     pincode: 1230,
     area: "Uttara",
     city: "Dhaka",
-    Country: "Bangladesh",
+    country: "Bangladesh",
     __v: 0,
   },
 ];
