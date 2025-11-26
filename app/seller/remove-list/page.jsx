@@ -22,8 +22,9 @@ const RemoveProduct = () => {
       });
 
       if (data.success) {
-        // Only show products starting from the 11th
-        setProducts(data.products.slice(10));
+        // Only show products added by the current user, starting from the 11th
+        const userProducts = data.products.filter((p) => p.userId === user.id);
+        setProducts(userProducts.slice(10));
       } else {
         toast.error(data.message);
       }
