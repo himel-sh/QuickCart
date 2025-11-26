@@ -6,9 +6,15 @@ import { NextResponse } from "next/server";
 export async function DELETE(request) {
   try {
     const { userId } = getAuth(request);
+    if (!userId) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const productId = searchParams.get("id");
-
     if (!productId) {
       return NextResponse.json(
         { success: false, message: "Product ID is required" },
@@ -18,9 +24,9 @@ export async function DELETE(request) {
 
     await connectDB();
 
-    // Get first 10 products sorted by creation date
+    // Get first 10 products globally (not user-specific)
     const firstTenProducts = await Product.find({})
-      .sort({ date: 1 }) // ascending, oldest first
+      .sort({ date: 1 })
       .limit(10)
       .select("_id");
 
@@ -33,14 +39,11 @@ export async function DELETE(request) {
       );
     }
 
-    // Check if product exists and belongs to the user
+    // Only delete if the product belongs to this user
     const product = await Product.findOne({ _id: productId, userId });
     if (!product) {
       return NextResponse.json(
-        {
-          success: false,
-          message: "Product not found or you are not authorized",
-        },
+        { success: false, message: "Product not found or not authorized" },
         { status: 404 }
       );
     }
