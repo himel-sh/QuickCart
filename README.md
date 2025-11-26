@@ -40,6 +40,31 @@ Built with Next.js and Clerk for authentication, QuickCart provides a modern sho
 
 ---
 
+### ⚡ **API Route Summary & Capabilities**
+
+QuickCart provides the following backend functionalities via Next.js API routes:
+
+#### **Product Management**
+- **Add Product:** Sellers can add new products to the marketplace (`POST /api/product/create`).
+- **Delete Product:** Sellers can remove their products by ID (`DELETE /api/product/delete?id=:id`).
+- **View Product:** Retrieve details of a specific product (`GET /api/product/:id`).
+
+#### **Order Management**
+- **Place Order:** Authenticated users can place an order with selected items and saved addresses (`POST /api/order/create`).
+- **User Order History:** Users can view all their past orders (`GET /api/order/list`).
+- **Seller Orders:** Sellers can view all orders placed for their products (`GET /api/order/seller-orders`).
+
+#### **User Management**
+- **Fetch User Addresses:** Retrieve all saved addresses for the logged-in user (`GET /api/user/get-address`).
+- **Add Address:** Add a new address to the user's profile (`POST /api/user/add-address`).
+
+#### **Authentication & Authorization**
+- **Handled via Clerk SDK:** Login, signup, session management, and protected routes (`/api/auth/*`).
+
+#### **Notifications & Events**
+- **Real-Time Notifications:** Using React Hot Toast for success/error messages.
+- **Event Handling:** Order creation events are handled via Inngest for workflow automation.
+
 
 ### 🚀 **Setup & Installation**
 
@@ -47,30 +72,4 @@ Built with Next.js and Clerk for authentication, QuickCart provides a modern sho
 ```bash
 git clone https://github.com/yourusername/quickcart.git
 cd quickcart```
-
-### ⚡ API Route Summary
-
-#### **Product Routes**
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST   | `/api/product/create` | Add a new product (seller only) |
-| DELETE | `/api/product/delete?id=:id` | Delete a product by ID (seller only) |
-| GET    | `/api/product/:id` | Get details of a specific product |
-
-#### **Order Routes**
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST   | `/api/order/create` | Place a new order (authenticated user) |
-| GET    | `/api/order/list` | Get all orders for the logged-in user |
-
-#### **User Routes**
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET    | `/api/user/get-address` | Fetch addresses of the logged-in user |
-| POST   | `/api/user/add-address` | Add a new address for the user |
-
-#### **Auth / Clerk**
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| Handled internally by Clerk SDK | `/api/auth/*` | Authentication, login, signup, and session management |
 
