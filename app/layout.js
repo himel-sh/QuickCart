@@ -8,7 +8,7 @@ import "styled-jsx/css";
 const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
 export const metadata = {
-  title: "QuickCart - GreatStack",
+  title: "QuickCart",
   description: "E-Commerce with Next.js ",
 };
 
