@@ -63,7 +63,7 @@ const MyOrders = () => {
                       <span className="font-medium text-base">
                         {order.items
                           .map(
-                            (item) => item.product.name + ` x ${item.quantity}`
+                            (item) => `${item.product.name} x ${item.quantity}`
                           )
                           .join(", ")}
                       </span>
