@@ -22,7 +22,8 @@ const RemoveProduct = () => {
       });
 
       if (data.success) {
-        setProducts(data.products);
+        // Only show products starting from the 11th
+        setProducts(data.products.slice(10));
       } else {
         toast.error(data.message);
       }
@@ -34,10 +35,10 @@ const RemoveProduct = () => {
   };
 
   const handleDelete = async (productId) => {
-    const confirm = window.confirm(
+    const confirmDelete = window.confirm(
       "Are you sure you want to delete this product? This action cannot be undone."
     );
-    if (!confirm) return;
+    if (!confirmDelete) return;
 
     try {
       setDeleting(productId);
@@ -51,7 +52,6 @@ const RemoveProduct = () => {
 
       if (data.success) {
         toast.success(data.message);
-        // Remove product from state to update UI
         setProducts(products.filter((p) => p._id !== productId));
       } else {
         toast.error(data.message);
@@ -91,17 +91,27 @@ const RemoveProduct = () => {
                 </tr>
               </thead>
               <tbody className="text-sm text-gray-500">
-                {products.map((product, index) => (
+                {products.map((product) => (
                   <tr key={product._id} className="border-t border-gray-500/20">
                     <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
                       <div className="bg-gray-500/10 rounded p-2">
-                        <Image
-                          src={product.image[0]}
-                          alt="product Image"
-                          className="w-16"
-                          width={1280}
-                          height={720}
-                        />
+                        {product.image && product.image[0] ? (
+                          <Image
+                            src={product.image[0]}
+                            alt="product Image"
+                            className="w-16"
+                            width={1280}
+                            height={720}
+                          />
+                        ) : (
+                          <Image
+                            src="/placeholder.png" // fallback placeholder in public folder
+                            alt="placeholder"
+                            className="w-16"
+                            width={1280}
+                            height={720}
+                          />
+                        )}
                       </div>
                       <span className="truncate w-full">{product.name}</span>
                     </td>
@@ -122,10 +132,22 @@ const RemoveProduct = () => {
                         <span className="hidden md:block">
                           {deleting === product._id ? "Deleting..." : "Delete"}
                         </span>
+                        <Image
+                          className="h-3.5"
+                          src={assets.delete_icon}
+                          alt="delete_icon"
+                        />
                       </button>
                     </td>
                   </tr>
                 ))}
+                {products.length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="text-center py-4 text-gray-400">
+                      No products available to delete.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
