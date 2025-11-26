@@ -46,3 +46,34 @@ Built with Next.js and Clerk for authentication, QuickCart provides a modern sho
 ```bash
 git clone https://github.com/yourusername/quickcart.git
 cd quickcart
+
+
+### ⚡ API Route Summary
+
+#### **Product Routes**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | `/api/product/sellerlist` | Fetch products of the logged-in seller |
+| POST   | `/api/product/create` | Add a new product (seller only) |
+| DELETE | `/api/product/delete?id=:id` | Delete a product by ID (seller only) |
+| GET    | `/api/product/:id` | Get details of a specific product |
+
+#### **Order Routes**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST   | `/api/order/create` | Place a new order (authenticated user) |
+| GET    | `/api/order/list` | Get all orders for the logged-in user |
+| GET    | `/api/order/seller-orders` | Get all orders for the seller’s products |
+
+#### **User Routes**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | `/api/user/get-address` | Fetch addresses of the logged-in user |
+| POST   | `/api/user/add-address` | Add a new address for the user |
+
+#### **Auth / Clerk**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| Handled internally by Clerk SDK | `/api/auth/*` | Authentication, login, signup, and session management |
+
+
