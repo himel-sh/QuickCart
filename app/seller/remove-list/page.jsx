@@ -132,11 +132,6 @@ const RemoveProduct = () => {
                         <span className="hidden md:block">
                           {deleting === product._id ? "Deleting..." : "Delete"}
                         </span>
-                        <Image
-                          className="h-3.5"
-                          src={assets.delete_icon}
-                          alt="delete_icon"
-                        />
                       </button>
                     </td>
                   </tr>
