@@ -13,11 +13,11 @@ const SideBar = () => {
       path: "/seller/product-list",
       icon: assets.product_list_icon,
     },
-    { name: "Orders", path: "/seller/orders", icon: assets.order_icon },
+
     {
       name: "Remove Product",
       path: "/seller/remove-list",
-      icon: assets.product_list_icon,
+      icon: assets.order_icon,
     },
   ];
 

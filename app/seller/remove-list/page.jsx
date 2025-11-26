@@ -17,12 +17,12 @@ const RemoveProduct = () => {
   const fetchSellerProducts = async () => {
     try {
       const token = await getToken();
-      const { data } = await axios.get("/api/product/sellerlist", {
+      const { data } = await axios.get("/api/product/removelist", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       if (data.success) {
-        setProducts(data.products.slice(10)); // show products after the first 10
+        setProducts(data.products); // already sliced by backend
       } else {
         toast.error(data.message);
       }
@@ -49,7 +49,7 @@ const RemoveProduct = () => {
 
       if (data.success) {
         toast.success(data.message);
-        setProducts(products.filter((p) => p._id !== productId));
+        setProducts((prev) => prev.filter((p) => p._id !== productId));
       } else {
         toast.error(data.message);
       }
@@ -152,6 +152,7 @@ const RemoveProduct = () => {
                     <p className="text-gray-500 text-sm">{product.category}</p>
                   </div>
                 </div>
+
                 <div className="flex items-center space-x-2 mt-2 sm:mt-0">
                   <p className="font-medium">BDT {product.offerPrice}</p>
                   <button

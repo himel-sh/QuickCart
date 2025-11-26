@@ -16,20 +16,14 @@ export async function GET(request) {
 
     await connectDB();
 
-    const url = new URL(request.url);
-    const userOnly = url.searchParams.get("userOnly"); // e.g., /api/product/sellerlist?userOnly=true
-
-    let products;
-    if (userOnly === "true") {
-      // Only fetch products added by this logged-in user
-      products = await Product.find({ userId });
-    } else {
-      // Fetch all products (existing behavior)
-      products = await Product.find({});
-    }
+    // fetch only products created by this user
+    const products = await Product.find({ userId }).sort({ date: -1 });
 
     return NextResponse.json({ success: true, products });
   } catch (error) {
-    return NextResponse.json({ success: false, message: error.message });
+    return NextResponse.json({
+      success: false,
+      message: error.message,
+    });
   }
 }
