@@ -31,7 +31,6 @@ export async function POST(request) {
 
     const totalAmount = amount + Math.floor(amount * 0.02);
 
-    // ✅ Save to MongoDB
     const order = await Order.create({
       userId,
       items,
