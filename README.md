@@ -8,7 +8,7 @@ Built with Next.js and Clerk for authentication, QuickCart provides a modern sho
 ### 🌐 **Live Site URL**
 
 *(Add your deployed site link here)*  
-👉 [https://your-quickcart-live-site.com](https://your-quickcart-live-site.com)
+👉 [https://quick-cart-mu-hazel.vercel.app/](https://quick-cart-mu-hazel.vercel.app/)
 
 ---
 
