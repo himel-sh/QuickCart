@@ -5,38 +5,45 @@ import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
 import { useAppContext } from "@/context/AppContext";
 import React from "react";
-import { useClerk } from "@clerk/nextjs";
+import { useClerk, useUser } from "@clerk/nextjs";
 
 const Product = () => {
   const { id } = useParams();
-  const { products, router, addToCart, user } = useAppContext();
-  const { openSignIn, isSignedIn } = useClerk(); // added isSignedIn for extra safety
+  const router = useRouter();
+  const { products, addToCart } = useAppContext();
+  const { openSignIn } = useClerk();
+  const { isSignedIn, user } = useUser(); // reactive auth state
 
   const [mainImage, setMainImage] = useState(null);
   const [productData, setProductData] = useState(null);
 
-  // Only open SignIn modal if user is not signed in
+  // Open SignIn modal if user is not signed in
   useEffect(() => {
-    // Ensure user is actually null/undefined and Clerk session is not active
-    if (!user && !isSignedIn) {
+    if (!isSignedIn) {
       openSignIn();
     }
-  }, [user, isSignedIn, openSignIn]);
+  }, [isSignedIn, openSignIn]);
 
-  const fetchProductData = async () => {
-    const product = products.find((product) => product._id === id);
-    setProductData(product);
-  };
-
+  // Redirect to home if user is definitely not signed in
   useEffect(() => {
-    if (user) fetchProductData();
-  }, [id, products.length, user]);
+    if (isSignedIn === false && !user) {
+      // Clerk tells us user is signed out
+      router.push("/");
+    }
+  }, [isSignedIn, user, router]);
 
-  // Show loading while waiting for user state
+  // Fetch product data after user signs in
+  useEffect(() => {
+    if (user) {
+      const product = products.find((product) => product._id === id);
+      setProductData(product);
+    }
+  }, [id, products, user]);
+
   if (!user) return <Loading />;
 
   return productData ? (
