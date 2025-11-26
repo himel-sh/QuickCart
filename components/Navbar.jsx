@@ -5,10 +5,17 @@ import Link from "next/link";
 import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
 import { useClerk, UserButton } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const { router, user } = useAppContext();
   const { openSignIn } = useClerk();
+  const pathname = usePathname(); // get current path
+
+  const linkClasses = (path) =>
+    `hover:text-gray-900 transition ${
+      pathname === path ? "text-orange-600 font-semibold" : ""
+    }`;
 
   return (
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-gray-300 text-gray-700">
@@ -20,18 +27,19 @@ const Navbar = () => {
       />
 
       <div className="flex items-center gap-4 lg:gap-8 max-md:hidden">
-        <Link href="/" className="hover:text-gray-900 transition">
+        <Link href="/" className={linkClasses("/")}>
           Home
         </Link>
-        <Link href="/all-products" className="hover:text-gray-900 transition">
+        <Link href="/all-products" className={linkClasses("/all-products")}>
           Shop
         </Link>
 
-        {/* Only show Seller Dashboard if user is logged in */}
         {user && (
           <button
             onClick={() => router.push("/seller")}
-            className="text-xs border px-4 py-1.5 rounded-full"
+            className={`text-xs border px-4 py-1.5 rounded-full ${
+              pathname === "/seller" ? "border-orange-600 text-orange-600" : ""
+            }`}
           >
             Seller Dashboard
           </button>
@@ -69,11 +77,12 @@ const Navbar = () => {
       </ul>
 
       <div className="flex items-center md:hidden gap-3">
-        {/* Only show Seller Dashboard if user is logged in */}
         {user && (
           <button
             onClick={() => router.push("/seller")}
-            className="text-xs border px-4 py-1.5 rounded-full"
+            className={`text-xs border px-4 py-1.5 rounded-full ${
+              pathname === "/seller" ? "border-orange-600 text-orange-600" : ""
+            }`}
           >
             Seller Dashboard
           </button>
