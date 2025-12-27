@@ -3,17 +3,29 @@
 @tailwind utilities;
 
 * {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 @layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
+
+  html.dark {
+    color-scheme: dark;
+  }
+}
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+/* Dark mode specific styles */
+@media (prefers-color-scheme: dark) {
+  html.dark {
+    background-color: #111827;
+    color: #d1d5db;
+  }
 }
