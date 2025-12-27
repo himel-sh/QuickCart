@@ -1,8 +1,5 @@
-// * @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     remotePatterns: [
       {
@@ -17,9 +14,6 @@ const nextConfig = {
       },
     ],
   },
-  //   experimental: {
-  //     forceSwcTransforms: true, // add this to fix styled-jsx issues in builds
-  //   },
 };
 
 export default nextConfig;

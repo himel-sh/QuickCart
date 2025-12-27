@@ -33,6 +33,12 @@ const Navbar = () => {
         <Link href="/all-products" className={linkClasses("/all-products")}>
           Shop
         </Link>
+        <Link href="/about-us" className={linkClasses("/about-us")}>
+          About Us
+        </Link>
+        <Link href="/contact-us" className={linkClasses("/contact-us")}>
+          Contact Us
+        </Link>
 
         {user && (
           <button
@@ -102,6 +108,20 @@ const Navbar = () => {
                 label="Products"
                 labelIcon={<BoxIcon />}
                 onClick={() => router.push("/all-products")}
+              />
+            </UserButton.MenuItems>
+            <UserButton.MenuItems>
+              <UserButton.Action
+                label="About Us"
+                labelIcon={<BoxIcon />}
+                onClick={() => router.push("/about-us")}
+              />
+            </UserButton.MenuItems>
+            <UserButton.MenuItems>
+              <UserButton.Action
+                label="Contact Us"
+                labelIcon={<BoxIcon />}
+                onClick={() => router.push("/contact-us")}
               />
             </UserButton.MenuItems>
             <UserButton.MenuItems>

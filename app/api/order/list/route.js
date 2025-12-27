@@ -24,9 +24,9 @@ export async function GET(request) {
       .populate({
         path: "items.product",
         model: "product",
-        strictPopulate: false, // prevent errors if product deleted
+        strictPopulate: false,
       })
-      .lean(); // convert to plain JS objects
+      .lean();
 
     // Transform orders to handle deleted products/addresses
     const transformedOrders = orders.map((order) => ({
